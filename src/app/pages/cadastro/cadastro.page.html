@@ -1,0 +1,137 @@
+<ion-content [fullscreen]="true" class="cadastro-content">
+  <div class="cadastro-container">
+    <button class="back-button" type="button" (click)="goToLogin()">
+      <img src="assets/icons/arrow-left.svg" alt="" class="back-icon" aria-hidden="true" />
+      <span>Voltar ao login</span>
+    </button>
+
+    <img src="assets/logo-dinnpay.png" alt="Logo DinnPay" class="logo" />
+    <h1 class="title">Crie sua conta</h1>
+
+    <form class="cadastro-form" (ngSubmit)="onRegister()">
+
+      <!-- Nome -->
+      <div class="field-block">
+        <label class="field-label">Nome</label>
+        <div class="input-group"
+          [class.input-group--erro]="tocadoNome && !nomeValido"
+          [class.input-group--valido]="tocadoNome && nomeValido">
+          <img src="assets/icons/user.svg" alt="" class="input-icon" aria-hidden="true" />
+          <input
+            type="text"
+            name="nome"
+            [(ngModel)]="nome"
+            placeholder="Nome completo"
+            class="custom-input"
+            (blur)="tocadoNome = true"
+          />
+        </div>
+        @if (tocadoNome && !nomeValido) {
+          <p class="campo-erro">Nome é obrigatório.</p>
+        }
+      </div>
+
+      <!-- E-mail -->
+      <div class="field-block">
+        <label class="field-label">E-mail</label>
+        <div class="input-group"
+          [class.input-group--erro]="tocadoEmail && !emailValido"
+          [class.input-group--valido]="tocadoEmail && emailValido">
+          <img src="assets/icons/mail.svg" alt="" class="input-icon" aria-hidden="true" />
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="E-mail"
+            class="custom-input"
+            (blur)="tocadoEmail = true"
+          />
+        </div>
+        @if (tocadoEmail && !emailValido) {
+          <p class="campo-erro">Digite um e-mail válido.</p>
+        }
+      </div>
+
+      <!-- Senha -->
+      <div class="field-block">
+        <label class="field-label">Senha</label>
+        <div class="input-group"
+          [class.input-group--erro]="tocadoSenha && !senhaValida"
+          [class.input-group--valido]="tocadoSenha && senhaValida">
+          <img src="assets/icons/lock.svg" alt="" class="input-icon" aria-hidden="true" />
+          <input
+            [type]="mostrarSenha ? 'text' : 'password'"
+            name="senha"
+            [(ngModel)]="senha"
+            placeholder="Senha"
+            class="custom-input"
+            (blur)="tocadoSenha = true"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="toggleMostrarSenha()"
+            [attr.aria-label]="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'"
+          >
+            <img [src]="mostrarSenha ? 'assets/icons/eye-off.svg' : 'assets/icons/eye.svg'" alt="" class="toggle-password-icon" aria-hidden="true" />
+          </button>
+        </div>
+        @if (senha.length > 0) {
+          <ul class="senha-requisitos">
+            <li [class.ok]="senhaMinChars">Mínimo 8 caracteres</li>
+            <li [class.ok]="senhaMaiuscula">Uma letra maiúscula</li>
+            <li [class.ok]="senhaNumero">Um número</li>
+          </ul>
+        }
+      </div>
+
+      <!-- Confirmar senha -->
+      <div class="field-block">
+        <label class="field-label">Confirmar senha</label>
+        <div class="input-group"
+          [class.input-group--erro]="tocadoConfirmarSenha && !confirmarSenhaValida"
+          [class.input-group--valido]="tocadoConfirmarSenha && confirmarSenhaValida">
+          <img src="assets/icons/lock.svg" alt="" class="input-icon" aria-hidden="true" />
+          <input
+            [type]="mostrarConfirmarSenha ? 'text' : 'password'"
+            name="confirmarSenha"
+            [(ngModel)]="confirmarSenha"
+            placeholder="Confirme sua senha"
+            class="custom-input"
+            (blur)="tocadoConfirmarSenha = true"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="toggleMostrarConfirmarSenha()"
+            [attr.aria-label]="mostrarConfirmarSenha ? 'Ocultar confirmação de senha' : 'Mostrar confirmação de senha'"
+          >
+            <img [src]="mostrarConfirmarSenha ? 'assets/icons/eye-off.svg' : 'assets/icons/eye.svg'" alt="" class="toggle-password-icon" aria-hidden="true" />
+          </button>
+        </div>
+        @if (tocadoConfirmarSenha && confirmarSenha.length > 0 && !confirmarSenhaValida) {
+          <p class="campo-erro">As senhas não coincidem.</p>
+        }
+      </div>
+
+      <button type="submit" class="btn-register" [disabled]="carregando">
+        {{ carregando ? 'Criando conta...' : 'Criar conta' }}
+      </button>
+    </form>
+  </div>
+</ion-content>
+
+@if (mostrarCardSucesso) {
+  <div class="sucesso-overlay">
+    <div class="sucesso-card">
+      <div class="sucesso-icone">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="28" fill="#e6f7f0"/>
+          <path d="M17 28.5l8 8 14-16" stroke="#00a765" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="sucesso-titulo">Cadastro realizado<br>com sucesso!</h2>
+      <button class="sucesso-btn" type="button" (click)="irParaLogin()">OK</button>
+    </div>
+  </div>
+}

@@ -1,0 +1,94 @@
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  height: 68px;
+  background: var(--dp-surface);
+  border-radius: var(--dp-r-input);
+  border: 1px solid var(--dp-border);
+  box-shadow: var(--dp-shadow);
+}
+
+/* ── Ícone tipo ── */
+
+.item-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.receita-icon { background: var(--dp-receita-bg); }
+.despesa-icon { background: var(--dp-despesa-bg); }
+
+.item-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ── Textos ── */
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.item-descricao {
+  color: var(--dp-text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-valor {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.valor-receita { color: var(--dp-receita); }
+.valor-despesa { color: var(--dp-despesa); }
+
+/* ── Ações ── */
+
+.item-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.item-acoes {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.btn-acao {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  border-radius: var(--dp-r-sm);
+  transition: background 0.15s;
+}
+
+.btn-editar:active  { background: var(--dp-primary-bg); }
+.btn-deletar:active { background: var(--dp-despesa-bg); }

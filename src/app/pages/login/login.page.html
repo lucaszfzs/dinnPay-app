@@ -1,0 +1,99 @@
+@if (mostrarModalSenha) {
+  <div class="modal-backdrop" (click)="fecharModalSenha()">
+    <section class="modal-card" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="modal-recuperacao-titulo">
+      <div class="modal-handle"></div>
+
+      @if (!recuperacaoEnviada) {
+        <h2 class="modal-titulo" id="modal-recuperacao-titulo">Recuperar senha</h2>
+        <p class="modal-descricao">Informe o e-mail cadastrado e enviaremos um link para você redefinir sua senha.</p>
+
+        <div class="input-group">
+          <img src="assets/icons/mail.svg" alt="" class="input-icon" aria-hidden="true" />
+          <input
+            type="email"
+            name="emailRecuperacao"
+            [(ngModel)]="emailRecuperacao"
+            placeholder="Seu e-mail"
+            class="custom-input"
+          />
+        </div>
+
+        <button type="button" class="btn-login" [disabled]="carregandoRecuperacao" (click)="onEnviarRecuperacao()">
+          {{ carregandoRecuperacao ? 'Enviando...' : 'Enviar link' }}
+        </button>
+        <button type="button" class="btn-register" (click)="fecharModalSenha()">Cancelar</button>
+      } @else {
+        <div class="modal-sucesso">
+          <div class="modal-sucesso-icone">✓</div>
+          <h2 class="modal-titulo" id="modal-recuperacao-titulo">Link enviado!</h2>
+          <p class="modal-descricao">Verifique sua caixa de entrada (e a pasta de spam) e siga as instruções para redefinir sua senha.</p>
+        </div>
+        <button type="button" class="btn-login" (click)="fecharModalSenha()">Fechar</button>
+      }
+    </section>
+  </div>
+}
+
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="login-container">
+
+    <img
+      src="assets/logo-dinnpay.png"
+      alt="Logo DinnPay"
+      class="logo"
+    />
+
+    <h1 class="title">Bem-vindo ao DinnPay</h1>
+    <p class="subtitle">Gerencie suas finanças com facilidade</p>
+
+    <form class="login-form" (ngSubmit)="onLogin()">
+      <div class="input-group">
+        <img src="assets/icons/user.svg" alt="" class="input-icon" aria-hidden="true" />
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="E-mail"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="input-group">
+        <img src="assets/icons/lock.svg" alt="" class="input-icon" aria-hidden="true" />
+        <input
+          [type]="mostrarSenha ? 'text' : 'password'"
+          name="senha"
+          [(ngModel)]="senha"
+          placeholder="Senha"
+          class="custom-input"
+        />
+        <button
+          type="button"
+          class="toggle-password"
+          (click)="toggleMostrarSenha()"
+          [attr.aria-label]="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'"
+        >
+          <img
+            [src]="mostrarSenha ? 'assets/icons/eye-off.svg' : 'assets/icons/eye.svg'"
+            alt=""
+            class="toggle-password-icon"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+
+      <button type="button" class="btn-forgot" (click)="abrirModalSenha()">
+        Esqueceu sua senha?
+      </button>
+
+      <button type="submit" class="btn-login" [disabled]="carregando">
+        {{ carregando ? 'Entrando...' : 'Entrar' }}
+      </button>
+
+      <button type="button" class="btn-register" (click)="onRegister()" [disabled]="carregando">
+        Cadastre-se
+      </button>
+    </form>
+
+  </div>
+</ion-content>

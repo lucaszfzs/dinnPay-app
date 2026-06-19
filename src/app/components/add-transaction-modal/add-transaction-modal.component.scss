@@ -1,0 +1,239 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--dp-surface);
+  border: 1px solid var(--dp-border);
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.12);
+  position: relative;
+  box-sizing: border-box;
+  padding: 12px 22px 36px;
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--dp-border);
+  margin: 0 auto 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  border: none;
+  background: var(--dp-bg);
+  color: var(--dp-text-2);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-body {
+  padding-top: 0;
+}
+
+.modal-title {
+  margin: 0 0 22px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dp-text);
+}
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dp-text-2);
+  padding-left: 4px;
+}
+
+/* ── Seleção de tipo ── */
+
+.type-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.type-card {
+  width: 100%;
+  border: 1.5px solid var(--dp-border);
+  border-radius: var(--dp-r-input);
+  background: var(--dp-surface);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: inherit;
+}
+
+.type-card:active { opacity: 0.85; }
+
+.receita-card.active {
+  border-color: rgba(23, 199, 66, 0.50);
+  background: var(--dp-receita-bg);
+}
+
+.despesa-card.active {
+  border-color: rgba(239, 58, 58, 0.50);
+  background: var(--dp-despesa-bg);
+}
+
+.type-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.type-card-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.receita-icon-circle { background: var(--dp-receita-bg); }
+.despesa-icon-circle { background: var(--dp-despesa-bg); }
+
+.type-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.type-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.type-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dp-text);
+}
+
+.type-card-description {
+  font-size: 12px;
+  color: var(--dp-text-3);
+}
+
+/* ── Inputs ── */
+
+.input-group {
+  width: 100%;
+  height: var(--dp-input-h);
+  border: 1.5px solid var(--dp-border);
+  border-radius: var(--dp-r-input);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--dp-input-bg);
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: var(--dp-primary);
+  }
+}
+
+.input-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-right: 12px;
+  opacity: 0.4;
+}
+
+.input-icon-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dp-primary);
+  line-height: 1;
+  margin-right: 10px;
+}
+
+.custom-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: var(--dp-text);
+  font-family: inherit;
+  padding: 0;
+
+  &::placeholder { color: var(--dp-text-3); }
+}
+
+.valor-input {
+  caret-color: transparent;
+}
+
+/* ── Botão ── */
+
+.btn-register-transaction {
+  width: 100%;
+  height: var(--dp-input-h);
+  margin-top: 8px;
+  border: none;
+  border-radius: var(--dp-r-btn);
+  background: var(--dp-primary);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s, transform 0.15s;
+
+  &:active {
+    opacity: 0.88;
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

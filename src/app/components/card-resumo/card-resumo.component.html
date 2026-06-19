@@ -1,0 +1,12 @@
+<div class="card-resumo" [class.receita]="isReceita" [class.despesa]="!isReceita">
+  <div class="card-top">
+    <div class="icon-circle">
+      <img [src]="icone" [alt]="altIcone" class="card-icon" />
+    </div>
+    <span class="card-titulo">{{ titulo }}</span>
+  </div>
+
+  <div class="card-bottom">
+    <span class="card-valor">{{ formatarMoeda(valor) }}</span>
+  </div>
+</div>

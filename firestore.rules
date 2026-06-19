@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /usuario/{uid} {
+      // Leitura: apenas o próprio usuário autenticado
+      allow read: if request.auth != null && request.auth.uid == uid;
+
+      // Criação: apenas o próprio usuário, com campos obrigatórios validados
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasAll(['uid', 'nome', 'email'])
+        && request.resource.data.uid == uid
+        && request.resource.data.nome is string
+        && request.resource.data.nome.size() > 0
+        && request.resource.data.nome.size() <= 100
+        && request.resource.data.email is string;
+
+      // Atualização: apenas campos permitidos, sem alterar uid
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['nome', 'email']);
+
+      // Exclusão: bloqueada (conta excluída via Firebase Auth)
+      allow delete: if false;
+
+      match /transacoes/{transacaoId} {
+        // Leitura: apenas o dono
+        allow read: if request.auth != null && request.auth.uid == uid;
+
+        // Criação: campos obrigatórios e tipagem validados
+        allow create: if request.auth != null
+          && request.auth.uid == uid
+          && request.resource.data.keys().hasAll(['tipo', 'descricao', 'valor', 'data', 'mes', 'ano'])
+          && request.resource.data.tipo in ['receita', 'despesa']
+          && request.resource.data.descricao is string
+          && request.resource.data.descricao.size() > 0
+          && request.resource.data.descricao.size() <= 200
+          && request.resource.data.valor is number
+          && request.resource.data.valor > 0
+          && request.resource.data.valor <= 9999999
+          && request.resource.data.mes is string
+          && request.resource.data.ano is int
+          && request.resource.data.ano >= 2020
+          && request.resource.data.ano <= 2100;
+
+        // Atualização: apenas campos editáveis
+        allow update: if request.auth != null
+          && request.auth.uid == uid
+          && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(['tipo', 'descricao', 'valor'])
+          && request.resource.data.tipo in ['receita', 'despesa']
+          && request.resource.data.descricao is string
+          && request.resource.data.descricao.size() > 0
+          && request.resource.data.descricao.size() <= 200
+          && request.resource.data.valor is number
+          && request.resource.data.valor > 0
+          && request.resource.data.valor <= 9999999;
+
+        // Exclusão: permitida apenas pelo dono
+        allow delete: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+.card-resumo {
+  overflow: hidden;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-r-card);
+  background: var(--dp-surface);
+  box-shadow: var(--dp-shadow);
+}
+
+/* ── Topo colorido ── */
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 12px 14px;
+}
+
+.receita .card-top { background: var(--dp-receita-bg); }
+.despesa .card-top { background: var(--dp-despesa-bg); }
+
+/* ── Ícone ── */
+
+.icon-circle {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+/* ── Título ── */
+
+.card-titulo {
+  color: var(--dp-text);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ── Valor ── */
+
+.card-bottom {
+  padding: 12px 14px 16px;
+  background: var(--dp-surface);
+}
+
+.card-valor {
+  display: block;
+  color: var(--dp-text);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 380px) {
+  .card-titulo { font-size: 14px; }
+  .card-valor  { font-size: 16px; }
+}

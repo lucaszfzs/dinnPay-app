@@ -1,0 +1,193 @@
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <div class="dashboard-container">
+
+    <div class="dashboard-header">
+      <h1 class="dashboard-titulo">Dashboard</h1>
+      <div class="ano-selector">
+        @for (ano of anos; track ano) {
+          <button
+            class="ano-btn"
+            [class.active]="anoSelecionado === ano"
+            (click)="selecionarAno(ano)"
+          >{{ ano }}</button>
+        }
+      </div>
+    </div>
+
+    <!-- Gráfico 1: Barras mensais -->
+    <div class="grafico-card">
+      <h3 class="card-titulo">Receitas x Despesas por Mês</h3>
+
+      <div class="grafico-inner">
+        <div class="eixo-y">
+          @for (linha of linhasGrafico; track linha) {
+            <span class="eixo-y-label">{{ calcularLabelEixoY(linha) }}</span>
+          }
+        </div>
+
+        <div class="grafico-area">
+          <div class="grafico-grid">
+            @for (linha of linhasGrafico; track linha) {
+              <div class="grid-line"></div>
+            }
+          </div>
+          <div class="grafico-bars">
+            @for (item of dadosDashboard.mensais; track item.abrev; let i = $index) {
+              <div
+                class="bar-group"
+                [class.selecionado]="mesSelecionado === i"
+                (click)="selecionarMes(i)"
+              >
+                @if (mesSelecionado === i) {
+                  <div class="bar-tooltip">
+                    <span class="tooltip-receita">{{ formatarMoeda(item.receita) }}</span>
+                    <span class="tooltip-despesa">{{ formatarMoeda(item.despesa) }}</span>
+                  </div>
+                }
+                <div class="bar-pair">
+                  <div class="bar receita-bar" [style.height]="calcularAlturaMensal(item.receita) + '%'"></div>
+                  <div class="bar despesa-bar" [style.height]="calcularAlturaMensal(item.despesa) + '%'"></div>
+                </div>
+                <span class="bar-label">{{ item.abrev }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="grafico-legenda">
+        <div class="legenda-item">
+          <span class="legenda-cor cor-receita"></span>
+          <span>Receita</span>
+        </div>
+        <div class="legenda-item">
+          <span class="legenda-cor cor-despesa"></span>
+          <span>Despesa</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfico 2: Donut distribuição -->
+    <div class="grafico-card">
+      <h3 class="card-titulo">Distribuição do Período</h3>
+
+      <div class="donut-wrapper">
+        <div class="donut" [style.background]="donutStyle">
+          <div class="donut-centro">
+            <span class="donut-label">Saldo</span>
+            <span class="donut-value" [class.negativo]="dadosDashboard.saldoTotal < 0">
+              {{ formatarMoeda(dadosDashboard.saldoTotal) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="donut-stats">
+        <div class="donut-stat receita-stat">
+          <span class="stat-label">Receitas</span>
+          <span class="stat-value">{{ formatarMoeda(dadosDashboard.receitaTotal) }}</span>
+          <span class="stat-percent">{{ dadosDashboard.percentReceita | number:'1.0-0' }}%</span>
+        </div>
+        <div class="donut-stat despesa-stat">
+          <span class="stat-label">Despesas</span>
+          <span class="stat-value">{{ formatarMoeda(dadosDashboard.despesaTotal) }}</span>
+          <span class="stat-percent">{{ (100 - dadosDashboard.percentReceita) | number:'1.0-0' }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfico 3: Evolução mensal — receita vs despesa -->
+    <div class="grafico-card">
+      <h3 class="card-titulo">Evolução Mensal</h3>
+
+      @if (linhasEvolucao.pontos.length > 0) {
+        <svg class="evolucao-svg" viewBox="0 0 280 90" preserveAspectRatio="none">
+          <!-- Linha receita -->
+          <polyline
+            [attr.points]="linhasEvolucao.receita"
+            fill="none"
+            stroke="#17c742"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <!-- Linha despesa -->
+          <polyline
+            [attr.points]="linhasEvolucao.despesa"
+            fill="none"
+            stroke="#ef3a3a"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <!-- Pontos receita -->
+          @for (p of linhasEvolucao.pontos; track p.abrev; let i = $index) {
+            <circle
+              [attr.cx]="p.x"
+              [attr.cy]="p.yReceita"
+              r="3"
+              [attr.fill]="mesSelecionado === i ? '#17c742' : '#ffffff'"
+              stroke="#17c742"
+              stroke-width="1.5"
+              class="evolucao-ponto"
+              (click)="selecionarMes(i)"
+            />
+          }
+          <!-- Pontos despesa -->
+          @for (p of linhasEvolucao.pontos; track p.abrev; let i = $index) {
+            <circle
+              [attr.cx]="p.x"
+              [attr.cy]="p.yDespesa"
+              r="3"
+              [attr.fill]="mesSelecionado === i ? '#ef3a3a' : '#ffffff'"
+              stroke="#ef3a3a"
+              stroke-width="1.5"
+              class="evolucao-ponto"
+              (click)="selecionarMes(i)"
+            />
+          }
+        </svg>
+
+        <!-- Labels dos meses -->
+        <div class="evolucao-labels">
+          @for (p of linhasEvolucao.pontos; track p.abrev; let i = $index) {
+            <span
+              class="evolucao-label"
+              [class.evolucao-label--ativo]="mesSelecionado === i"
+              (click)="selecionarMes(i)"
+            >{{ p.abrev }}</span>
+          }
+        </div>
+
+        <!-- Tooltip do mês selecionado -->
+        @if (mesSelecionado !== null && linhasEvolucao.pontos[mesSelecionado]) {
+          <div class="evolucao-tooltip">
+            <span class="evolucao-tooltip-mes">{{ linhasEvolucao.pontos[mesSelecionado].abrev }}</span>
+            <div class="evolucao-tooltip-valores">
+              <span class="tooltip-receita">
+                ↑ {{ formatarMoeda(linhasEvolucao.pontos[mesSelecionado].receita) }}
+              </span>
+              <span class="tooltip-despesa">
+                ↓ {{ formatarMoeda(linhasEvolucao.pontos[mesSelecionado].despesa) }}
+              </span>
+            </div>
+          </div>
+        }
+
+        <div class="grafico-legenda">
+          <div class="legenda-item">
+            <span class="legenda-cor cor-receita"></span><span>Receita</span>
+          </div>
+          <div class="legenda-item">
+            <span class="legenda-cor cor-despesa"></span><span>Despesa</span>
+          </div>
+        </div>
+      } @else {
+        <div class="linha-vazia">
+          <p>Sem transações em {{ anoSelecionado }}</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,111 @@
+.top-filter {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.filter-button {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--dp-r-card);
+  background: var(--dp-surface);
+  border: 1.5px solid var(--dp-border);
+  color: var(--dp-text);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: var(--dp-shadow);
+}
+
+.filter-arrow {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+  opacity: 0.5;
+}
+
+.filter-arrow.open {
+  transform: rotate(180deg);
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  width: 240px;
+  background: var(--dp-surface);
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-r-card);
+  padding: 16px;
+  box-shadow: var(--dp-shadow-lg);
+  z-index: 20;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dp-text-2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.filter-group select {
+  height: 42px;
+  border: 1.5px solid var(--dp-border);
+  border-radius: var(--dp-r-input);
+  padding: 0 12px;
+  background: var(--dp-input-bg);
+  font-size: 14px;
+  color: var(--dp-text);
+  outline: none;
+  font-family: inherit;
+  cursor: pointer;
+
+  &:focus { border-color: var(--dp-primary); }
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-filter-primary,
+.btn-filter-secondary {
+  flex: 1;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+
+  &:active { opacity: 0.85; }
+}
+
+.btn-filter-primary {
+  border: none;
+  background: var(--dp-primary);
+  color: #ffffff;
+}
+
+.btn-filter-secondary {
+  border: 1.5px solid var(--dp-border);
+  background: var(--dp-surface);
+  color: var(--dp-text);
+}

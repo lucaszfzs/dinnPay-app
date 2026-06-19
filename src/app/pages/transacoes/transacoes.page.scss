@@ -1,0 +1,187 @@
+.transacoes-content {
+  --background: var(--dp-bg);
+}
+
+.transacoes-container {
+  width: 100%;
+  padding: clamp(28px, 6vh, 52px) 20px calc(104px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* ── Título ── */
+
+.page-titulo {
+  margin: 0 0 20px;
+  color: var(--dp-text);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+/* ── FAB exportar ── */
+
+.btn-export-fab {
+  position: fixed;
+  right: 20px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: var(--dp-r-btn);
+  background: var(--dp-surface);
+  color: var(--dp-primary);
+  box-shadow: var(--dp-shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  bottom: calc(104px + env(safe-area-inset-bottom));
+
+  @media (display-mode: standalone) {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+
+  &--android {
+    bottom: calc(160px + env(safe-area-inset-bottom));
+
+    @media (display-mode: standalone) {
+      bottom: calc(120px + env(safe-area-inset-bottom));
+    }
+  }
+
+  &:active {
+    transform: scale(0.90);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+  }
+}
+
+/* ── Cards resumo ── */
+
+.cards-resumo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* ── Tab bar ── */
+
+.tab-bar {
+  margin-bottom: 20px;
+}
+
+.tab-bar-track {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border-radius: 21px;
+  background: var(--dp-primary-bg);
+  padding: 3px;
+}
+
+.tab-item {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dp-text);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:active { opacity: 0.85; }
+}
+
+.tab-ativo {
+  background: var(--dp-primary);
+  color: #ffffff;
+}
+
+/* ── Lista de transações ── */
+
+.lista-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ── Grupos por data ── */
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grupo-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.grupo-data {
+  color: var(--dp-text-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.grupo-linha {
+  flex: 1;
+  height: 1px;
+  background: var(--dp-border);
+}
+
+.grupo-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Estado vazio ── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 64px 0;
+}
+
+.empty-icon {
+  margin-bottom: 4px;
+}
+
+.empty-titulo {
+  margin: 0;
+  color: var(--dp-text);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.empty-subtitulo {
+  margin: 0;
+  color: var(--dp-text-3);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media (max-width: 380px) {
+  .transacoes-container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .tab-item { font-size: 13px; }
+}

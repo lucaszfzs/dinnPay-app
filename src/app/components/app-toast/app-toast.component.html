@@ -1,0 +1,10 @@
+@if (estado(); as t) {
+  <div class="toast" [class.visivel]="visivel()" [class]="'toast--' + t.tipo" role="alert">
+    <div class="toast__icone">
+      @if (t.tipo === 'erro') { <span>✕</span> }
+      @else { <span>✓</span> }
+    </div>
+    <p class="toast__mensagem">{{ t.mensagem }}</p>
+    <button class="toast__fechar" type="button" (click)="dispensar()" aria-label="Fechar">✕</button>
+  </div>
+}

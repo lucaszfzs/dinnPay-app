@@ -1,0 +1,73 @@
+<nav class="bottom-menu">
+  <button
+    type="button"
+    class="menu-item"
+    [class.active]="activeMenu === 'inicio'"
+    (click)="onMenuSelect('inicio')"
+  >
+    <span class="menu-icon-box">
+      <img
+        src="assets/icons/home.svg"
+        alt="Inicio"
+        class="menu-icon"
+      />
+    </span>
+    <span class="menu-label">Inicio</span>
+  </button>
+
+  <button
+    type="button"
+    class="menu-item"
+    [class.active]="activeMenu === 'transacoes'"
+    (click)="onMenuSelect('transacoes')"
+  >
+    <span class="menu-icon-box">
+      <img
+        src="assets/icons/wallet.svg"
+        alt="Transacoes"
+        class="menu-icon menu-icon-transacoes"
+      />
+    </span>
+    <span class="menu-label">Transações</span>
+  </button>
+
+  <button type="button" class="menu-fab" (click)="onFabClick()">
+    <img
+      src="assets/icons/plus.svg"
+      alt="Nova transacao"
+      class="menu-fab-icon"
+    />
+  </button>
+
+  <button
+    type="button"
+    class="menu-item"
+    [class.active]="activeMenu === 'dashboard'"
+    (click)="onMenuSelect('dashboard')"
+  >
+    <span class="menu-icon-box">
+      <img
+        src="assets/icons/chart.svg"
+        alt="Dashboard"
+        class="menu-icon"
+      />
+    </span>
+    <span class="menu-label">Dashboard</span>
+  </button>
+
+  <button
+    type="button"
+    class="menu-item"
+    [class.active]="activeMenu === 'perfil'"
+    (click)="onMenuSelect('perfil')"
+  >
+    <span class="menu-icon-box">
+      <img
+        src="assets/icons/profile.svg"
+        alt="Perfil"
+        class="menu-icon"
+      />
+    </span>
+    <span class="menu-label">Perfil</span>
+  </button>
+</nav>

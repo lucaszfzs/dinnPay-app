@@ -1,0 +1,101 @@
+.bottom-menu {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 87px;
+  padding: 0 8px env(safe-area-inset-bottom);
+  background: var(--dp-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 50;
+}
+
+.menu-item {
+  width: 68px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding-top: 10px;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: color 0.2s;
+  font-family: inherit;
+
+  &.active {
+    color: #ffffff;
+
+    .menu-icon-box {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+.menu-icon-box {
+  width: 38px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--dp-r-sm);
+  transition: background 0.2s;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+  opacity: 0.9;
+}
+
+.menu-icon-transacoes {
+  width: 28px;
+  height: 28px;
+}
+
+.menu-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* FAB central */
+.menu-fab {
+  width: 64px;
+  height: 64px;
+  margin-top: -40px;
+  border: 5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  background: var(--dp-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(0, 87, 53, 0.30);
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:active {
+    transform: scale(0.94);
+    box-shadow: 0 4px 12px rgba(0, 87, 53, 0.20);
+  }
+}
+
+.menu-fab-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}

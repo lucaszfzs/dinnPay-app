@@ -1,0 +1,168 @@
+.perfil-content {
+  --background: var(--dp-bg);
+  --padding-bottom: env(safe-area-inset-bottom);
+}
+
+.perfil-container {
+  width: 100%;
+  padding: 0 20px calc(104px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* ── Hero ── */
+
+.perfil-hero {
+  position: relative;
+  margin: 0 -20px 48px;
+  padding: 0 20px 20px;
+}
+
+.hero-surface {
+  height: 220px;
+  border-radius: 0 0 32px 32px;
+  background: var(--dp-primary);
+  box-shadow: 0 16px 32px rgba(0, 87, 53, 0.18);
+}
+
+.perfil-avatar {
+  position: absolute;
+  top: 162px;
+  left: 50%;
+  width: 108px;
+  height: 108px;
+  border: 6px solid var(--dp-bg);
+  border-radius: 50%;
+  background: var(--dp-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 24px rgba(0, 77, 49, 0.18);
+}
+
+.perfil-avatar ion-icon {
+  font-size: 60px;
+  color: #ffffff;
+}
+
+/* ── Identidade ── */
+
+.perfil-identidade {
+  padding-top: 62px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.perfil-nome {
+  margin: 0;
+  color: var(--dp-text);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.perfil-email {
+  margin: 6px 0 0;
+  color: var(--dp-text-2);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ── Lista de opções ── */
+
+.perfil-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.perfil-card {
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-r-input);
+  background: var(--dp-surface);
+  box-shadow: var(--dp-shadow);
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:active { opacity: 0.8; }
+}
+
+.card-icon-box {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--dp-r-sm);
+  background: var(--dp-primary-bg);
+}
+
+.card-icon-box ion-icon {
+  font-size: 20px;
+  color: var(--dp-primary);
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-titulo {
+  flex: 1;
+  color: var(--dp-text);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.card-subtitulo {
+  color: var(--dp-text-3);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.card-chevron {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--dp-text-3);
+}
+
+.versao-app {
+  margin: 24px 0 0;
+  text-align: center;
+  color: var(--dp-text-3);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 380px) {
+  .perfil-container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .perfil-hero {
+    margin-right: -16px;
+    margin-left: -16px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .perfil-nome { font-size: 23px; }
+}

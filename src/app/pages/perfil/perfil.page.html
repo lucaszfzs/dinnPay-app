@@ -1,0 +1,50 @@
+<ion-content [fullscreen]="true" class="perfil-content">
+  <div class="perfil-container">
+    <section class="perfil-hero">
+      <div class="hero-surface"></div>
+
+      <div class="perfil-avatar" aria-hidden="true">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </div>
+
+      @if (usuarioService.usuario$ | async; as usuario) {
+        <div class="perfil-identidade">
+          <h1 class="perfil-nome">{{ usuario.nome }}</h1>
+          <p class="perfil-email">{{ usuario.email }}</p>
+        </div>
+      }
+    </section>
+
+    <section class="perfil-lista" aria-label="Opcoes do perfil">
+
+      <!-- Compartilhar app -->
+      <button type="button" class="perfil-card" (click)="compartilharApp()" aria-label="Compartilhar app">
+        <span class="card-icon-box card-icon-box--share" aria-hidden="true">
+          <ion-icon name="share-social-outline"></ion-icon>
+        </span>
+        <div class="card-content">
+          <span class="card-titulo">Compartilhar App</span>
+          <span class="card-subtitulo">Indique o DinnPay para amigos</span>
+        </div>
+        <ion-icon class="card-chevron" name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+      <!-- Sair -->
+      <button type="button" class="perfil-card" (click)="sair()" aria-label="Sair">
+        <span class="card-icon-box" aria-hidden="true">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </span>
+
+        <span class="card-titulo">Sair</span>
+
+        <ion-icon
+          class="card-chevron"
+          name="chevron-forward-outline"
+          aria-hidden="true"
+        ></ion-icon>
+      </button>
+    </section>
+
+    <p class="versao-app">v{{ versao }}</p>
+  </div>
+</ion-content>

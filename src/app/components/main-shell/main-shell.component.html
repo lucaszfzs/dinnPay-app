@@ -1,0 +1,17 @@
+<div class="main-shell">
+  <div class="main-shell-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-bottom-menu
+    [activeMenu]="activeMenu"
+    (menuSelect)="selecionarMenu($event)"
+    (fabClick)="novaTransacao()"
+  ></app-bottom-menu>
+
+  <app-add-transaction-modal
+    [visible]="modalNovaTransacaoAberto"
+    (fechar)="fecharModalNovaTransacao()"
+    (save)="salvarNovaTransacao($event)"
+  ></app-add-transaction-modal>
+</div>

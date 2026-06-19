@@ -1,0 +1,60 @@
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+/* ── Design System ─────────────────────────────────────────── */
+
+:root {
+  /* Cores principais */
+  --dp-primary:        #00a765;
+  --dp-primary-dark:   #007a4b;
+  --dp-primary-bg:     rgba(0, 167, 101, 0.10);
+
+  /* Receita / Despesa */
+  --dp-receita:        #17c742;
+  --dp-receita-bg:     #e2f8e8;
+  --dp-despesa:        #ef3a3a;
+  --dp-despesa-bg:     #fde8e8;
+
+  /* Texto */
+  --dp-text:           #111827;
+  --dp-text-2:         #6b7280;
+  --dp-text-3:         #9ca3af;
+
+  /* Superfícies */
+  --dp-surface:        #ffffff;
+  --dp-bg:             #f5f7fa;
+  --dp-input-bg:       #f7f8fa;
+
+  /* Borda */
+  --dp-border:         rgba(0, 0, 0, 0.09);
+
+  /* Sombras */
+  --dp-shadow:         0 2px 12px rgba(0, 0, 0, 0.06);
+  --dp-shadow-lg:      0 8px 24px rgba(0, 0, 0, 0.10);
+
+  /* Raios */
+  --dp-r-card:         20px;
+  --dp-r-input:        16px;
+  --dp-r-btn:          16px;
+  --dp-r-sm:           10px;
+
+  /* Altura padrão inputs/botões */
+  --dp-input-h:        52px;
+
+  /* Erro */
+  --dp-error:          #ef3a3a;
+}
+
+/* Reset global leve */
+*, *::before, *::after { box-sizing: border-box; }
+
+button { font-family: inherit; }

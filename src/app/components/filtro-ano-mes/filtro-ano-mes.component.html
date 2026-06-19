@@ -1,0 +1,36 @@
+<div class="top-filter">
+  <button type="button" class="filter-button" (click)="toggleFiltroAberto()">
+    <span>{{ mes }}/{{ ano }}</span>
+    <img
+      src="assets/icons/chevron-down.svg"
+      alt="Abrir filtro"
+      class="filter-arrow"
+      [class.open]="filtroAberto"
+    />
+  </button>
+
+  <div class="filter-dropdown" *ngIf="filtroAberto">
+    <div class="filter-group">
+      <label>Mes</label>
+      <select [(ngModel)]="mesSelecionadoTemp">
+        <option *ngFor="let item of meses" [value]="item">{{ item }}</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Ano</label>
+      <select [(ngModel)]="anoSelecionadoTemp">
+        <option *ngFor="let item of anos" [value]="item">{{ item }}</option>
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <button type="button" class="btn-filter-secondary" (click)="cancelarFiltro()">
+        Cancelar
+      </button>
+      <button type="button" class="btn-filter-primary" (click)="aplicarFiltro()">
+        Aplicar
+      </button>
+    </div>
+  </div>
+</div>

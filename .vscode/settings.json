@@ -1,0 +1,9 @@
+{
+  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"],
+  "java.import.exclusions": [
+    "**/node_modules/**",
+    "**/www/**",
+    "**/dist/**"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
+}

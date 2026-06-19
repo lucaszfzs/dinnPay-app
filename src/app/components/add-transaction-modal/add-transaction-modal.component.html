@@ -1,0 +1,108 @@
+<div class="modal-backdrop" *ngIf="visible" (click)="onClose()">
+  <section
+    class="modal-card"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Adicionar nova transação"
+  >
+    <div class="modal-handle"></div>
+
+    <button
+      type="button"
+      class="close-button"
+      (click)="onClose()"
+      aria-label="Fechar modal"
+    >
+      ×
+    </button>
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{ titulo }}</h2>
+
+      <form class="transaction-form" (ngSubmit)="onSave()">
+        <div class="field-block">
+          <label class="field-label">Tipo da transação</label>
+
+          <div class="type-cards">
+            <button
+              type="button"
+              class="type-card receita-card"
+              [class.active]="tipo === 'receita'"
+              (click)="tipo = 'receita'"
+            >
+              <div class="type-card-left">
+                <div class="type-card-icon receita-icon-circle">
+                  <img src="assets/icons/arrow-up-right.svg" alt="" aria-hidden="true" class="type-icon"/>
+                </div>
+                <div class="type-card-content">
+                  <span class="type-card-title">Receita</span>
+                  <span class="type-card-description">Entrada de valor</span>
+                </div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="type-card despesa-card"
+              [class.active]="tipo === 'despesa'"
+              (click)="tipo = 'despesa'"
+            >
+              <div class="type-card-left">
+                <div class="type-card-icon despesa-icon-circle">
+                  <img src="assets/icons/arrow-down-right.svg" alt="" aria-hidden="true" class="type-icon"/>
+                </div>
+                <div class="type-card-content">
+                  <span class="type-card-title">Despesa</span>
+                  <span class="type-card-description">Saída de valor</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-label" for="transaction-description">Descrição</label>
+          <div class="input-group">
+            <img src="assets/icons/note.svg" alt="" aria-hidden="true" class="input-icon"/>
+            <input
+              id="transaction-description"
+              type="text"
+              name="descricao"
+              [(ngModel)]="descricao"
+              class="custom-input"
+              placeholder="Ex: Salário, Aluguel..."
+            />
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-label" for="transaction-value">Valor</label>
+          <div class="input-group valor-group">
+            <span class="input-icon-text" aria-hidden="true">R$</span>
+            <input
+              id="transaction-value"
+              type="tel"
+              inputmode="numeric"
+              [value]="valorFormatado"
+              (keydown)="onValorKeydown($event)"
+              (input)="onValorInput($event)"
+              (focus)="onValorFocus($event)"
+              placeholder="0,00"
+              class="custom-input valor-input"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-register-transaction"
+          [disabled]="!descricao.trim() || !digitos"
+        >
+          {{ labelBotao }}
+        </button>
+      </form>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true" class="inicio-content">
+  <div class="inicio-container">
+    <app-filtro-ano-mes
+      [meses]="meses"
+      [anos]="anos"
+      [mes]="filtroSelecionado.mes"
+      [ano]="filtroSelecionado.ano"
+      (filtroChange)="aplicarFiltro($event)"
+    ></app-filtro-ano-mes>
+
+    <section class="saldo-section">
+      <h2 class="saldo-label">Saldo total em contas</h2>
+      <h1 class="saldo-value">{{ formatarMoeda(dadosTela.saldoTotal) }}</h1>
+    </section>
+
+    <section class="cards-resumo">
+      <app-card-resumo tipo="receita" [valor]="dadosTela.receitaTotal"></app-card-resumo>
+      <app-card-resumo tipo="despesa" [valor]="dadosTela.despesaTotal"></app-card-resumo>
+    </section>
+
+    <section class="grafico-section">
+      <div class="grafico-card">
+        <h3 class="card-titulo">Receitas x Despesas — Semana</h3>
+        <div class="grafico-inner">
+
+          <div class="eixo-y">
+            @for (linha of linhasGrafico; track linha) {
+              <span class="eixo-y-label">{{ calcularLabelEixoY(linha) }}</span>
+            }
+          </div>
+
+          <div class="grafico-area">
+            <div class="grafico-grid">
+              @for (linha of linhasGrafico; track linha) {
+                <div class="grid-line"></div>
+              }
+            </div>
+
+            <div class="grafico-bars">
+              @for (item of dadosTela.graficoSemana; track item.dia; let i = $index) {
+                <div
+                  class="bar-group"
+                  [class.selecionado]="diaSelecionado === i"
+                  (click)="selecionarDia(i)"
+                >
+                  @if (diaSelecionado === i) {
+                    <div class="bar-tooltip">
+                      <span class="tooltip-receita">{{ formatarMoeda(item.receita) }}</span>
+                      <span class="tooltip-despesa">{{ formatarMoeda(item.despesa) }}</span>
+                    </div>
+                  }
+                  <div class="bar-pair">
+                    <div class="bar receita-bar" [style.height]="calcularAltura(item.receita) + '%'"></div>
+                    <div class="bar despesa-bar" [style.height]="calcularAltura(item.despesa) + '%'"></div>
+                  </div>
+                  <span class="bar-label">{{ item.dia }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

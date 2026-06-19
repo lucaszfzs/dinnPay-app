@@ -1,0 +1,18 @@
+.splash-content {
+  --background: var(--dp-surface);
+}
+
+.splash-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.logo {
+  width: 260px;
+  max-width: 80%;
+  height: auto;
+  object-fit: contain;
+}

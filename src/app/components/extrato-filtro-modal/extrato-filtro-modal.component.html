@@ -1,0 +1,160 @@
+@if (visible) {
+<div class="modal-backdrop" (click)="fechar()">
+  <section
+    class="modal-card"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Exportar extrato"
+  >
+    <div class="modal-handle"></div>
+
+    <button
+      type="button"
+      class="close-button"
+      (click)="fechar()"
+      aria-label="Fechar"
+      [disabled]="carregando"
+    >
+      ×
+    </button>
+
+    <div class="modal-body">
+      <h2 class="modal-title">Exportar Extrato</h2>
+
+      @if (exportacaoConcluida) {
+        <!-- Arquivo pronto: botão de compartilhar -->
+        <div class="sucesso-container">
+          <div class="sucesso-icone">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <p class="sucesso-msg">Extrato pronto!</p>
+          <p class="sucesso-sub">Toque em compartilhar para salvar ou enviar.</p>
+        </div>
+
+        <button type="button" class="btn-exportar" (click)="compartilharArquivo()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          Compartilhar {{ formato === 'pdf' ? 'PDF' : 'CSV' }}
+        </button>
+      } @else {
+        <!-- Formulário -->
+        <div class="field-block">
+          <label class="field-label">Período</label>
+          <div class="date-grid">
+            <div class="date-wrap">
+              <span class="date-sublabel">De</span>
+              <input
+                id="extrato-inicio"
+                type="date"
+                name="dataInicio"
+                [(ngModel)]="dataInicio"
+                class="date-input"
+                [disabled]="carregando"
+              />
+            </div>
+            <div class="date-wrap">
+              <span class="date-sublabel">Até</span>
+              <input
+                id="extrato-fim"
+                type="date"
+                name="dataFim"
+                [(ngModel)]="dataFim"
+                class="date-input"
+                [disabled]="carregando"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-label">Tipo de transação</label>
+          <div class="tab-bar-track">
+            <button type="button" class="tab-item"
+              [class.tab-ativo]="tipoFiltro === 'todas'"
+              (click)="tipoFiltro = 'todas'"
+              [disabled]="carregando">Todas</button>
+            <button type="button" class="tab-item"
+              [class.tab-ativo]="tipoFiltro === 'receitas'"
+              (click)="tipoFiltro = 'receitas'"
+              [disabled]="carregando">Receitas</button>
+            <button type="button" class="tab-item"
+              [class.tab-ativo]="tipoFiltro === 'despesas'"
+              (click)="tipoFiltro = 'despesas'"
+              [disabled]="carregando">Despesas</button>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-label">Formato</label>
+          <div class="tab-bar-track formato-track">
+            <button type="button" class="tab-item"
+              [class.tab-ativo]="formato === 'pdf'"
+              (click)="formato = 'pdf'"
+              [disabled]="carregando">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true" style="margin-right:5px;vertical-align:-2px">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              PDF
+            </button>
+            <button type="button" class="tab-item"
+              [class.tab-ativo]="formato === 'csv'"
+              (click)="formato = 'csv'"
+              [disabled]="carregando">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true" style="margin-right:5px;vertical-align:-2px">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="3" y1="15" x2="21" y2="15"/>
+                <line x1="9" y1="3" x2="9" y2="21"/>
+              </svg>
+              CSV
+            </button>
+          </div>
+        </div>
+
+        @if (erro) {
+          <p class="erro-msg">{{ erro }}</p>
+        }
+
+        <button
+          type="button"
+          class="btn-exportar"
+          (click)="exportar()"
+          [disabled]="carregando"
+        >
+          @if (!carregando) {
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Gerar {{ formato === 'pdf' ? 'PDF' : 'CSV' }}
+          } @else {
+            <span class="loader" aria-hidden="true"></span>
+            Gerando...
+          }
+        </button>
+      }
+    </div>
+  </section>
+</div>
+}

@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true" class="transacoes-content">
+  <div class="transacoes-container">
+
+    <!-- Filtro de mês/ano -->
+    <app-filtro-ano-mes
+      [meses]="meses"
+      [anos]="anos"
+      [mes]="filtroSelecionado.mes"
+      [ano]="filtroSelecionado.ano"
+      (filtroChange)="aplicarFiltro($event)"
+    ></app-filtro-ano-mes>
+
+    <!-- Título da página -->
+    <h1 class="page-titulo">Extrato de Transações</h1>
+
+    <!-- Tab bar: Todas / Receitas / Despesas -->
+    <div class="tab-bar">
+      <div class="tab-bar-track">
+        <button type="button" class="tab-item" [class.tab-ativo]="abaAtiva === 'todas'" (click)="selecionarAba('todas')">
+          Todas
+        </button>
+        <button type="button" class="tab-item" [class.tab-ativo]="abaAtiva === 'receitas'" (click)="selecionarAba('receitas')">
+          Receitas
+        </button>
+        <button type="button" class="tab-item" [class.tab-ativo]="abaAtiva === 'despesas'" (click)="selecionarAba('despesas')">
+          Despesas
+        </button>
+      </div>
+    </div>
+
+    <!-- Lista de transações -->
+    <section class="lista-section">
+
+      <!-- Estado vazio -->
+      @if (!temTransacoes) {
+        <div class="empty-state">
+          <p class="empty-titulo">Nenhuma transação</p>
+          <p class="empty-subtitulo">Não há registros para este período</p>
+        </div>
+      }
+
+      <!-- Grupos por data -->
+      @for (grupo of gruposFiltrados; track grupo.dataLabel) {
+        <div class="grupo">
+          <div class="grupo-header">
+            <span class="grupo-data">{{ grupo.dataLabel }}</span>
+            <div class="grupo-linha"></div>
+          </div>
+
+          <div class="grupo-itens">
+            @for (item of grupo.itens; track item.id) {
+              <app-transaction-item
+                [tipo]="item.tipo"
+                [descricao]="item.descricao"
+                [valor]="item.valor"
+                (editar)="abrirEdicao(item)"
+                (deletar)="deletarTransacao(item)"
+              ></app-transaction-item>
+            }
+          </div>
+        </div>
+      }
+
+    </section>
+
+  </div>
+</ion-content>
+
+<!-- FAB exportar PDF — fixo, canto inferior direito -->
+<button
+  type="button"
+  class="btn-export-fab"
+  [class.btn-export-fab--android]="isAndroid"
+  (click)="abrirModalExtrato()"
+  aria-label="Exportar extrato em PDF"
+  title="Exportar extrato em PDF"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+</button>
+
+<!-- Modal de extrato PDF -->
+<app-extrato-filtro-modal
+  [visible]="modalExtratoAberto"
+  (fechou)="fecharModalExtrato()"
+></app-extrato-filtro-modal>
+
+<!-- Modal de edição — fora do ion-content para ficar acima de tudo -->
+<app-add-transaction-modal
+  [visible]="modalEdicaoAberto"
+  [transacaoParaEditar]="transacaoParaEditar"
+  (fechar)="fecharModalEdicao()"
+  (save)="salvarEdicao($event)"
+></app-add-transaction-modal>
