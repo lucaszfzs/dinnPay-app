@@ -112,7 +112,7 @@ O acesso aos dados é controlado pelas [regras do Firestore](firestore.rules): c
 
 Mesmo sem os arquivos de `environment` preenchidos neste repositório, a credencial pública do Firebase (`apiKey`) do projeto original **pode ser obtida por qualquer pessoa** simplesmente inspecionando o código-fonte da aplicação publicada (DevTools do navegador, aba *Network*/*Sources*), já que esse dado é necessariamente enviado ao navegador para o SDK do Firebase funcionar no cliente.
 
-O objetivo deste projeto foi acadêmico, focado em funcionalidade e experiência de uso — **não houve validação aprofundada de todos os aspectos de segurança** (ex.: restrição de API key, App Check, rate limiting, etc.). As regras do Firestore aqui presentes oferecem uma proteção básica de acesso aos dados, mas quem utilizar este projeto como referência, modelo de estudo ou base para outro projeto deve estar ciente dessas limitações e avaliar/reforçar a segurança antes de qualquer uso em produção real.
+O objetivo deste projeto foi acadêmico, focado em funcionalidade e experiência de uso, **não houve validação aprofundada de todos os aspectos de segurança** (ex.: restrição de API key, App Check, rate limiting, etc.). As regras do Firestore aqui presentes oferecem uma proteção básica de acesso aos dados, mas quem utilizar este projeto como referência, modelo de estudo ou base para outro projeto deve estar ciente dessas limitações e avaliar reforçar a segurança antes de qualquer uso em produção real.
 
 ## 📄 Licença
 
